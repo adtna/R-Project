@@ -1,0 +1,31 @@
+---
+title: "Diagram Batang Dan Daun"
+author: "Aditya Nur Afrianda"
+date: "1/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library (data.table)
+library (dplyr)
+```
+
+```{r hasil pengukuran masing-masing mahasiswa}
+data = runif(20,0.1,0.99)
+data
+```
+
+```{r sampling}
+c_A = c(data)
+c_B = c(data)
+c_C = c(data)
+c_D = c(data)
+c_E = c(data)
+Pengukuran = rep(c(c_A,c_B,c_C,c_D,c_E))
+Pengukuran
+```
+
+``` {r}
+stem (Pengukuran)
+```
