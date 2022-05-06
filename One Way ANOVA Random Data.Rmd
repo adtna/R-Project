@@ -1,0 +1,53 @@
+---
+title: "ANOVA"
+author: "Aditya Nur Afrianda"
+date: "11/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library (data.table)
+library (dplyr)
+```
+
+``` {r data}
+data = runif(1000,90,100)
+data
+```
+
+```{r sampling}
+
+c_A = c(data)
+c_B = c(data)
+c_C = c(data)
+c_D = c(data)
+c_E = c(data)
+data_test <- data.table(
+  Peneliti <- rep(c("Anton", "Anna", "Ramli", "Yahya", "Gilbert"),each=200),
+  Pengukuran = c(c_A,c_B,c_C,c_D,c_E))
+colnames(data_test) <- c("Peneliti", "Pengukuran")
+data_test
+
+
+```
+``` {r Pengelompokan}
+grup = group_by(data_test,Peneliti) %>%
+  summarise(
+    count = n(),
+    mean = mean(Pengukuran, na.rm=TRUE),
+    var=(sd(Pengukuran, na.rm=TRUE))**2
+  )
+grup
+
+```
+
+```{r Hasil-Anova}
+HasilAnova <- aov(Pengukuran~Peneliti, data=data_test)
+summary <- summary(HasilAnova)
+summary
+```
+## Variansi sampling
+Variansi = (93.17-8,48)/4 = 
+
+
