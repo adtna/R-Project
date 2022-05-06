@@ -1,0 +1,58 @@
+---
+title: "PCA"
+author: "Aditya Nur Afrianda"
+date: "12/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+```
+
+```{r}
+L_300 = c(16,15,14,15,14,14,17,16,15,17,18,18)
+L_350 = c(62,60,59,61,60,59,63,62,60,63,62,64)
+L_400 = c(67,69,68,71,70,69,68,69,72,69,68,67)
+L_450 = c(27,31,31,31,30,30,29,28,30,27,28,29)
+```
+
+```{r}
+Tabel = data.table(L_300,L_350,L_400,L_450)
+colnames(Tabel) = c("300", "350","400","450")
+```
+
+```{r}
+pca = prcomp(Tabel)
+pca
+```
+
+data 300 dan 350 memiliki korelasi karena tandanya dan nilainya memiliki kesamaan
+data 400 dan 450 memiliki korelasi karena tandanya dan nilainya memiliki kesamaan 
+
+```{r}
+library(ggfortify)
+plot = autoplot(pca, data=Tabel, colour = 'blue')
+plot
+```
+
+```{r}
+d <- dist(Tabel,method="euclidian")
+fit <- hclust(d, method = "ward")
+plot(fit)
+groups <- cutree(fit, k=3)rect.hclust(fit, k=3, border="red")
+```
+
+``` {r}
+library(pvclust)
+fit <- pvclust(Tabel, method.hclust="ward", method.dist="euclidean")
+plot(fit)
+pvrect(fit, alpha=.95)
+```
+
+#rangkuman pra-uas
+1. Two way ANOVA
+2. Regresi non-parametrik
+3. Principle Component Analysis (PCA) (Kuis)
+4. Pendogram (Kuis)
+5. Artificial Neural Network

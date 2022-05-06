@@ -1,0 +1,36 @@
+---
+title: "Regresi Linear"
+author: "Aditya Nur Afrianda"
+date: "11/23/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library (data.table)
+```
+
+``` {r}
+y = c(2.1, 5.0, 9.0, 12.6, 17.3, 21.0, 24.7)
+x = c(0,2,4,6,8,10,12)
+```
+
+``` {r}
+plot (x,y)
+model = lm(y~x)
+abline (model,col="red", lwd=2)
+```
+
+```{r}
+summary(model)
+```
+``` {r menghitung sb}
+yhat = 1.9304*x + 1.5179
+sqrt(sum((y-yhat)**2)/5)/sqrt(112)
+
+``` 
+
+
+## gradien = b = 1,9304, 
+c =1.5179

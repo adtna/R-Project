@@ -1,0 +1,49 @@
+---
+title: "Artificial Neural Network"
+author: "Aditya Nur Afrianda"
+date: "1/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library (neuralnet)
+library (data.table)
+```
+
+```{r}
+c_besi <- c(20,10,30,20,80,30)
+c_timbal <- c(90,20,40,50,50,80)
+Parameter_Pencemaran <- c(1,0,0,0,1,1)
+```
+
+```{r}
+tabel <- data.table(c_besi,c_timbal, Parameter_Pencemaran)
+tabel
+```
+```{r}
+ne<-neuralnet(Parameter_Pencemaran~c_besi+c_timbal, data=tabel, hidden =6, act.fct="logistic", linear.output = F)
+```
+
+```{r}
+plot(ne)
+```
+```{r}
+c_besi <- c(30,40,85)
+c_timbal <- c(85,50,40)
+test<-data.table(c_besi,c_timbal)
+```
+
+```{r}
+prediksi <-compute(ne, test)
+prediksi$net.result
+```
+
+```{r}
+prob <-prediksi$net.result
+prediksi <-ifelse(prob>0.5,1,0)
+prediksi
+```

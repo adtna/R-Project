@@ -1,0 +1,35 @@
+---
+title: "LDA"
+author: "Aditya Nur Afrianda"
+date: "1/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library (tidyverse)
+library (MASS)
+library (klaR)
+```
+
+``` {r}
+variety <- rep(c("A","B","C"), each=5)
+sucrose <- c(20,27,26,34,29,6,10,14,10,8,8,7,15,14,9)
+glucose <- c(6,11,10,5,16,26,22,21,20,19,17,21,20,19,15)
+fructose <- c(40,49,47,47,40,49,47,51,49,49,55,59,68,74,57)
+sorbitol <- c(4.3,2.9,2.5,2.9,7.2,3.8,3.5,6.3,3.2,3.5,5.3,3.3,4.9,5.6,5.4)
+```
+
+```{r}
+library(data.table)
+data <- data.table (variety, sucrose, glucose, fructose, sorbitol)
+data
+```
+
+```{r}
+lda <- lda(variety~sucrose+glucose+fructose+sorbitol, data = data)
+lda
+plot(lda)
+```
+#data yang jauh (mengasingkan diri) biasanya outlayer dan harus dicurigai bukan termasuk ke dalam himpunan cluster (palsu)
+#perbedaan cluster analysis dan lda, pada cluster analysis menghasilkan klaisfikis bilangan dendrit sedangkan ini berupa kurva x y dimana hanya terdapat perbedaan pada tampilan dan tingkat akurasi (biasanya lda lebih akurat)
