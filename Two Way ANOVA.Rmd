@@ -1,0 +1,43 @@
+---
+title: "TWO WAY ANOVA"
+author: "Aditya Nur Afrianda"
+date: "12/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+library (data.table)
+library (dplyr)
+```
+
+#DATA
+``` {r ION PENGELAT}
+c_A = c(84,79,83)
+c_B = c(80,77,78)
+c_C = c(83,80,80)
+c_D = c(79,79,78)
+```
+#TABEL
+```{r}
+hari = rep(c("1","2","3"),4)
+agen = rep(c("A","B","C","D"),each=3)
+konsentrasi = c(c_A,c_B,c_C,c_D)
+suhu = runif(12,30,30.5)
+tabel = data.table(hari,agen,konsentrasi,suhu)
+tabel
+```
+# TWO-WAY ANOVA
+```{r}
+hasil_ANOVA = aov(konsentrasi~agen*hari*suhu)
+summary(hasil_ANOVA)
+```
+``` {r}
+hasil_ANOVA = aov(konsentrasi~agen+hari+suhu)
+summary(hasil_ANOVA)
+```
+
+#Agen pengelat paling menentukan dalam eksperimen dan berbeda secara signifikan karena pr>1

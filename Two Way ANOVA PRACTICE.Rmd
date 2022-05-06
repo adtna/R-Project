@@ -1,0 +1,64 @@
+---
+title: "Praktikum Kemometri"
+author: "Aditya Nur Afrianda"
+date: "1/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#
+
+```{r}
+library (data.table)
+library (dplyr)
+```
+
+# Sungai Citarum
+```{r konsentrasisungai citarum}
+c_A = c(5,10,15,20)
+c_B = c(15,6,12,18)
+c_C = c(15,10,7,11)
+c_D = c(15,12,10,6)
+c_E = c(10,12,10,8)
+```
+
+```{r}
+hari = rep(c("1","2","3","4","5"),4)
+suhu = rep(c("25","28","30","32"),each=5)
+konsentrasi = c(c_A,c_B,c_C,c_D,c_E)
+tabel = data.table(hari,suhu,konsentrasi)
+tabel
+```
+```{r}
+aov2 = aov(konsentrasi~suhu+hari, data=tabel)
+summary(aov2)
+```
+#Dari uji ANOVA yang dilakukan, faktor manakah yang paling berpengaruh dalam menentukan konsentrasi enzim yang dihasilkan di Sungai Citarum?
+#Jawab :Yang paling berpengaruh adalah hari/waktu pengambilan
+
+# Sungai Boyong
+
+```{r konsentrasi sungai boyong}
+c_A = c(10,10,12,12)
+c_B = c(10,12,12,15)
+c_C = c(11,10,22,25)
+c_D = c(24,25,25,12)
+c_E = c(14,18,15,10)
+```
+
+```{r}
+hari = rep(c("1","2","3","4","5"),4)
+suhu = rep(c("25","28","30","32"),each=5)
+konsentrasi = c(c_A,c_B,c_C,c_D,c_E)
+tabel = data.table(hari,suhu,konsentrasi)
+tabel
+```
+
+```{r}
+aov2 = aov(konsentrasi~suhu+hari, data=tabel)
+summary(aov2)
+```
+#Dengan menggunakan syntax ANOVA yang sama dengan kasus sebelumnya, tentukan apakah konsentrasi enzim yang diperoleh dari sungai Boyong lebih terpengaruh oleh suhu atau oleh waktu pengambilan?
+#Jawab = lebih terpengaruhi oleh suhu

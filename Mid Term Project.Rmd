@@ -1,0 +1,47 @@
+---
+title: "105119011_Soal OnE Way ANOVA_UTSKEMOMETRI"
+author: "Aditya Nur Afrianda"
+date: "11/24/2021"
+output: html_document
+---
+``` {r}
+library (data.table)
+library (dplyr)
+```
+
+```{r setup, include=FALSE}
+CPMD = c(0.766, 0.775, 0.755, 0.754, 0.784)
+
+REAXFF =  c(0.811, 0.871, 0.890, 0.801, 0.830, 0.080)
+
+DFTB = c(0.763, 0.774, 0.765, 0.753, 0.750, 0.779)
+
+data_test = data.table(
+  NAMA = rep(c("cpmd", "REAXFF", "DFTB"), each=6),
+  KADAR = rep(c(CPMD, REAXFF, DFTB )))
+colnames(data_test) = c("NAMA", "KADAR")
+data_test
+```
+
+``` {r}
+grup <- group_by(data_test,NAMA) %>%
+  summarise(
+
+    mean = mean(KADAR, na.rm=TRUE),
+    var=(sd(KADAR, na.rm=TRUE))**2
+  )
+grup
+````
+A.) JADI VARIANSI MASING-MASING ADALAH
+CPMD = 0.000458967
+DFTB = 0.000129
+REAXFF = 0.09621
+variansi antar sampel = 0.00820
+
+```{r Hasil-Anova}
+HasilAnova <- aov(KADAR~NAMA, data=data_test)
+summary <- summary(HasilAnova)
+summary
+```
+B.) Dapat disimpulkan bahwa sampling kETIGA metode tersebut TIDAK berbeda jauh , Hal ini juga didukung oleh nilai Pr(>F) > 0; artinya hipotesis nol diterima, yang menyatakan bahwa variansi antar-sampel tidak berbeda secara signifikan.
+C.)VARIANSI SAMPLING = (0.00820-0.03224)/6 = -4 X 10^-3

@@ -1,0 +1,97 @@
+---
+title: "105119011_UTSKEMOMETRI"
+author: "Aditya Nur Afrianda"
+date: "11/24/2021"
+output: html_document
+---
+
+
+SOal no 1
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+ani = c(105.01530,  99.33994, 102.33851, 102.81869, 101.16467, 100.40976, 104.60272, 105.96427, 103.44086, 105.32695, 104.00638, 100.38276, 103.00000, 102.29001,  99.71281, 100.16551, 101.43241, 102.69875,  99.82427, 104.88700)
+budi = c(94.31333,  91.09403, 108.50184, 108.26154, 102.18776, 93.33938,  93.23590, 109.72509,  93.11844,  97.87564, 100.14616,  90.21840, 107.36431,  95.90393, 108.45432, 102.42435,  95.14660, 103.28295, 108.40404, 105.95501)
+mean (ani)
+
+```
+
+``` {r}
+mean (ani)
+mean (budi)
+```
+
+``` {r}
+sd (ani)
+sd (budi)
+``` 
+
+
+``` {r}
+t.test(ani, budi)
+```
+
+
+soal no 2
+``` {r}
+konsentrasi = c(0, 10, 20, 30, 40, 50, 60, 70 )
+absorbansi = c(0.257, 0.314, 0.364, 0.413, 0.468, 0.528, 0.574, 0.635)
+mean (konsentrasi)
+mean (absorbansi)
+```
+
+``` {r}
+plot (konsentrasi,absorbansi)
+model = lm(absorbansi~konsentrasi)
+abline (model,col="red", lwd=2)
+```
+
+``` {r}
+summary (model)
+```
+
+
+``` {r}
+x = (0.368-0.256917)/0.005349
+print (x)
+```
+
+soal no 3
+``` {r}
+x = c(45.35236, 47.28868, 42.16651, 43.84009, 49.53521, 43.84702, 46.43782, 40.76995, 41.52705, 49.04975, 46.26065, 47.02730, 46.62201, 47.10277, 44.65075, 48.32356, 40.32627, 43.45949, 45.29821, 47.42627, 47.59999, 42.93631, 48.90428, 49.39280, 49.08788, 48.29770, 42.85293, 46.95612, 47.45375, 41.70814)
+mean (x)
+sd (x)
+```
+
+soal no 4
+``` {r}
+library (data.table)
+library (dplyr)
+```
+
+``` {r}
+data1 = c(0.766 ,0.775, 0.763, 0.755, 0.754, 0.781)
+data2 = c(0.811, 0.871, 0.890, 0.801, 0.830, 0.880)
+data3 = c(0.763, 0.77, 0.76, 0.753, 0.75, 0.779)
+
+data_test = data.table(Metode = rep(c("CPMD", "REAXFF", "DFTB"), each = 6)
+   Massa = rep(c(data1, data2, data3)))
+colnames(data_test)= c("Metode", "Massa jenis")
+data_test
+```
+
+``` {r}
+grup <- group_by(data_test,Metode) %>%
+  summarise(
+
+    mean = mean(Massa, na.rm=TRUE),
+    var=(sd(Massa, na.rm=TRUE))**2
+  )
+grup
+````
+
+```{r Hasil-Anova}
+HasilAnova <- aov(Massa~Metode, data=data_test)
+summary <- summary(HasilAnova)
+summary
+```
